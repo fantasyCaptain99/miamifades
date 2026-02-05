@@ -1,10 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { Button } from "@/components/ui/button";
+import { BookingDialog } from "@/components/booking-dialog";
 
-const team = [
+interface TeamMember {
+  name: string;
+  image: string;
+  role: string;
+}
+
+const team: TeamMember[] = [
   { name: "Erik Xega", image: "/images/tm1.jpg", role: "Fade Master" },
   {
     name: "Brandon McCullough",
@@ -17,6 +25,13 @@ const team = [
 
 export function Team() {
   const { ref, isVisible } = useScrollAnimation(0.1);
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleMemberClick = (member: TeamMember) => {
+    setSelectedMember(member);
+    setDialogOpen(true);
+  };
 
   return (
     <section id="team" className="py-24 lg:py-32 bg-background">
@@ -38,9 +53,10 @@ export function Team() {
         {/* Team Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 mb-12">
           {team.map((member, index) => (
-            <div
+            <button
               key={member.name}
-              className={`group text-center transition-all duration-700 ease-out ${
+              onClick={() => handleMemberClick(member)}
+              className={`group text-center transition-all duration-700 ease-out cursor-pointer ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-12"
@@ -55,7 +71,11 @@ export function Team() {
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/10 transition-colors duration-500" />
+                <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-colors duration-500 flex items-center justify-center">
+                  <span className="text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary/90 px-4 py-2 rounded-full text-sm">
+                    Book Now
+                  </span>
+                </div>
               </div>
 
               {/* Info */}
@@ -63,25 +83,17 @@ export function Team() {
                 {member.name}
               </h3>
               <p className="text-sm text-muted-foreground">{member.role}</p>
-            </div>
+            </button>
           ))}
         </div>
-
-        {/* CTA */}
-        <div
-          className={`text-center transition-all duration-1000 delay-700 ease-out ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          <Button
-            size="lg"
-            variant="outline"
-            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 px-8 bg-transparent"
-          >
-            Meet the Team
-          </Button>
-        </div>
       </div>
+
+      {/* Booking Dialog */}
+      <BookingDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        member={selectedMember}
+      />
     </section>
   );
 }
