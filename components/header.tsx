@@ -2,21 +2,22 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/lib/cart-context";
 
 const navItems = [
-  { label: "About Us", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Our Team", href: "#team" },
-  { label: "Products", href: "#products" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Contact", href: "#contact" },
+  { label: "About Us", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Our Team", href: "/team" },
+  { label: "Products", href: "/products" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { totalCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,6 +60,21 @@ export function Header() {
 
         {/* CTA Buttons */}
         <div className="hidden lg:flex items-center gap-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-foreground/80 hover:text-foreground transition-colors duration-300 relative"
+            asChild
+          >
+            <Link href="/cart">
+              <ShoppingCart className="w-4 h-4" />
+              {totalCount > 0 && (
+                <span className="absolute top-0.5 right-0.5 min-w-[18px] h-[18px] flex items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-medium px-1">
+                  {totalCount > 99 ? "99+" : totalCount}
+                </span>
+              )}
+            </Link>
+          </Button>
           <Button
             variant="ghost"
             size="sm"
@@ -104,6 +120,12 @@ export function Header() {
             </Link>
           ))}
           <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-border">
+            <Button variant="outline" className="w-full gap-2 bg-transparent" asChild>
+              <Link href="/cart" onClick={() => setIsOpen(false)}>
+                <ShoppingCart className="w-4 h-4" />
+                Cart {totalCount > 0 && `(${totalCount})`}
+              </Link>
+            </Button>
             <Button variant="outline" className="w-full gap-2 bg-transparent">
               <Phone className="w-4 h-4" />
               Call Now

@@ -176,9 +176,9 @@ export function BookingDialog({ open, onOpenChange, member }: BookingDialogProps
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden p-0">
+      <DialogContent className="max-w-2xl max-h-[90dvh] overflow-hidden p-0 flex flex-col">
         {/* Header with Member Info */}
-        <div className="border-b border-border p-6 pb-4">
+        <div className="border-b border-border p-6 pb-4 flex-shrink-0">
           <DialogHeader className="flex-row items-center gap-4">
             <div className="relative w-16 h-16 rounded-full overflow-hidden shrink-0">
               <Image
@@ -233,8 +233,8 @@ export function BookingDialog({ open, onOpenChange, member }: BookingDialogProps
           </div>
         </div>
 
-        {/* Content */}
-        <div className="p-6">
+        {/* Content - scrollable so time slots and footer stay visible on mobile */}
+        <div className="p-6 flex-1 min-h-0 overflow-y-auto">
           {/* Step 1: Service Selection */}
           {step === "service" && (
             <div className="space-y-4">
@@ -406,8 +406,8 @@ export function BookingDialog({ open, onOpenChange, member }: BookingDialogProps
           )}
         </div>
 
-        {/* Footer Actions */}
-        <div className="border-t border-border p-6 pt-4 flex items-center justify-between">
+        {/* Footer Actions - always visible at bottom */}
+        <div className="border-t border-border p-6 pt-4 flex items-center justify-between flex-shrink-0 bg-background">
           {step !== "service" ? (
             <Button
               variant="ghost"

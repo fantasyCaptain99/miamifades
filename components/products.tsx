@@ -1,39 +1,16 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/lib/cart-context";
+import { products } from "@/lib/products";
 import { ShoppingBag } from "lucide-react";
-
-const products = [
-  {
-    name: "NIGHT.RIDER",
-    price: 49,
-    originalPrice: 56,
-    image: "/images/products.jpg",
-  },
-  {
-    name: "KILLER.CURLS",
-    price: 56,
-    originalPrice: 63,
-    image: "/images/products.jpg",
-  },
-  {
-    name: "FREE.HOLD",
-    price: 49,
-    originalPrice: 56,
-    image: "/images/products.jpg",
-  },
-  {
-    name: "POWDER.PUFF",
-    price: 56,
-    originalPrice: 63,
-    image: "/images/products.jpg",
-  },
-];
 
 export function Products() {
   const { ref, isVisible } = useScrollAnimation(0.1);
+  const { addItem } = useCart();
 
   return (
     <section id="products" className="py-24 lg:py-32 bg-muted/50">
@@ -52,12 +29,13 @@ export function Products() {
           </h2>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-12">
+        {/* Products: horizontal scroll on mobile, grid on lg+ */}
+        <div className="flex overflow-x-auto gap-6 pb-4 -mx-6 px-6 snap-x snap-mandatory lg:mx-0 lg:px-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:snap-none lg:gap-8 mb-12 ml-1">
           {products.map((product, index) => (
-            <div
-              key={product.name}
-              className={`group bg-card rounded-2xl overflow-hidden transition-all duration-700 ease-out hover:shadow-xl ${
+            <Link
+              key={product.id}
+              href={`/products/${product.slug}`}
+              className={`group bg-card rounded-2xl overflow-hidden transition-all duration-700 ease-out hover:shadow-xl flex-shrink-0 w-[85vw] max-w-[340px] snap-start lg:w-auto lg:max-w-none block ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-12"
@@ -76,8 +54,17 @@ export function Products() {
                 <div className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full">
                   Save ${product.originalPrice - product.price}
                 </div>
-                {/* Quick Add */}
-                <button className="absolute bottom-3 right-3 w-10 h-10 bg-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary hover:text-primary-foreground shadow-lg">
+                {/* Quick Add - stops propagation so link isn't followed */}
+                <button
+                  type="button"
+                  className="absolute bottom-3 right-3 w-10 h-10 bg-card rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary hover:text-primary-foreground shadow-lg"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    addItem(product);
+                  }}
+                  aria-label={`Add ${product.name} to cart`}
+                >
                   <ShoppingBag className="w-4 h-4" />
                 </button>
               </div>
@@ -96,7 +83,7 @@ export function Products() {
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -109,8 +96,9 @@ export function Products() {
           <Button
             size="lg"
             className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 px-8"
+            asChild
           >
-            All Products
+            <Link href="/#products">All Products</Link>
           </Button>
         </div>
       </div>

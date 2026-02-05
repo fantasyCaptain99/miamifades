@@ -50,13 +50,13 @@ export function Team() {
           </h2>
         </div>
 
-        {/* Team Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 mb-12">
+        {/* Team: horizontal scroll on mobile, grid on md+ */}
+        <div className="flex overflow-x-auto gap-6 -mx-6 px-6 snap-x snap-mandatory md:mx-0 md:px-0 md:grid md:grid-cols-4 md:overflow-visible md:snap-none lg:gap-8 mb-12 ml-1">
           {team.map((member, index) => (
             <button
               key={member.name}
               onClick={() => handleMemberClick(member)}
-              className={`group text-center transition-all duration-700 ease-out cursor-pointer ${
+              className={`group text-center transition-all duration-700 ease-out cursor-pointer flex-shrink-0 w-[85vw] max-w-[280px] snap-start md:w-auto md:max-w-none ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-12"

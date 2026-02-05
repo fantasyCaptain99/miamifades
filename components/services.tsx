@@ -86,16 +86,16 @@ export function Services() {
             Our Signature Services Experience
           </span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground">
-            Menu
+            Our Services
           </h2>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 mb-12 service-list">
+        {/* Services: horizontal scroll on mobile, grid on md+ */}
+        <div className="flex overflow-x-auto gap-6 pb-4 -mx-6 px-6 snap-x snap-mandatory md:mx-0 md:px-0 md:grid md:grid-cols-2 md:overflow-visible md:snap-none lg:grid-cols-4 lg:gap-8 mb-12 service-list ml-1">
           {services.map((service, index) => (
             <div
               key={service.name}
-              className={`service-item group bg-card rounded-2xl p-8 transition-all duration-700 ease-out hover:shadow-xl hover:-translate-y-1 ${
+              className={`service-item group bg-card rounded-2xl p-8 transition-all duration-700 ease-out hover:shadow-xl hover:-translate-y-1 flex-shrink-0 w-[85vw] max-w-[340px] snap-start md:w-auto md:max-w-none ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-12"
