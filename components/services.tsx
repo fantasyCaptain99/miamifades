@@ -2,6 +2,7 @@
 
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { Clock, Scissors } from "lucide-react";
+import "../styles/globals.css";
 
 const services = [
   {
@@ -90,11 +91,11 @@ export function Services() {
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 mb-12 service-list">
           {services.map((service, index) => (
             <div
               key={service.name}
-              className={`group bg-card rounded-2xl p-8 transition-all duration-700 ease-out hover:shadow-xl hover:-translate-y-1 ${
+              className={`service-item group bg-card rounded-2xl p-8 transition-all duration-700 ease-out hover:shadow-xl hover:-translate-y-1 ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-12"
