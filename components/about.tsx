@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
@@ -59,7 +60,9 @@ export function About() {
               size="lg"
               className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 hover:shadow-lg px-8"
             >
+              <Link href="/about">
               About Us
+              </Link>
             </Button>
           </div>
         </div>
