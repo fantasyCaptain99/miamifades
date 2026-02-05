@@ -23,7 +23,7 @@ export const products: Product[] = [
     slug: slugify("NIGHT.RIDER"),
     price: 49,
     originalPrice: 56,
-    image: "/images/products.jpg",
+    image: "/images/p1.jpg",
     description:
       "Our signature styling cream for lasting hold and a natural finish. Perfect for textured looks and all-day control without the crunch.",
   },
@@ -33,7 +33,7 @@ export const products: Product[] = [
     slug: slugify("KILLER.CURLS"),
     price: 56,
     originalPrice: 63,
-    image: "/images/products.jpg",
+    image: "/images/p2.jpg",
     description:
       "Define and enhance your curls with this lightweight, nourishing formula. Adds shine and bounce while taming frizz.",
   },
@@ -43,7 +43,7 @@ export const products: Product[] = [
     slug: slugify("FREE.HOLD"),
     price: 49,
     originalPrice: 56,
-    image: "/images/products.jpg",
+    image: "/images/p3.jpg",
     description:
       "A flexible hold that moves with you. Ideal for messy, lived-in styles that stay put without feeling stiff.",
   },
@@ -53,7 +53,7 @@ export const products: Product[] = [
     slug: slugify("POWDER.PUFF"),
     price: 56,
     originalPrice: 63,
-    image: "/images/products.jpg",
+    image: "/images/p4.jpg",
     description:
       "Mattifying finishing powder that reduces shine and adds grip. Keeps your style locked in with a clean, natural look.",
   },

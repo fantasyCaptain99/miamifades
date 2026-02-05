@@ -43,12 +43,12 @@ export function Products() {
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               {/* Image */}
-              <div className="relative aspect-square overflow-hidden">
+              <div className="relative aspect-square overflow-hidden mb-20">
                 <Image
                   src={product.image}
                   alt={product.name}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110 mb-20"
                 />
                 {/* Sale Badge */}
                 <div className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full">
